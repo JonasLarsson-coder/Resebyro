@@ -1,0 +1,527 @@
+1. Som användare vill jag kunna skapa en egen profil för att kunna göra bokningar.
+
+Scenario: Skapa profil
+Givet att jag är på inloggning sidan
+När jag trycker på registrera mig 
+Och jag fyller i uppgifterna
+Och jag trycker på spara
+Så har en profil skapats
+
+
+2. Som användare vill jag kunna logga in på mitt konto.
+
+Scenario: Logga in
+Givet att jag är på framsidan 
+När jag trycker på logga in 
+Och fyller i användarnamn och lösenord
+Och trycker på spara/logga in
+Så är jag inne i min profil
+
+
+3. Som användare vill jag kunna redigera min profil för att uppdatera information. 
+
+Scenario: Redigera profil
+Givet att jag är inloggad
+Och är på min profilsida 
+När jag trycker på "redigera profil"
+Och ändrar uppgift 
+Och trycker på spara
+Så är profilen redigerad/ändrad
+
+
+4. Som användare vill jag kunna sortera sökresultat (efter pris tex).
+
+Scenario: Sortera sökresultat (Ex, pris)
+Givet att jag söker efter resmål 
+När jag trycker på sortera 
+Och trycker på sortera efter pris, billigast till dyrast
+Så får jag en lista på alla resmål från billigast till dyrast
+
+
+5. Som användare vill jag kunna söka på boenden på olika orter med specifika krav.
+
+Scenario: Sök boende i olika orter
+Givet att jag söker efter boende 
+När jag filterar på olika orter
+Och med specifika krav
+Så får jag en lista på mina filtreringar 
+
+
+   
+6. Som användare vill jag kunna söka på specifika saker som boende och faciliteter.
+
+Scenario: Sökning på specifika boenden och faciliteter
+Givet att jag är en användare som besöker webbplatsen för att boka resa
+Och jag har valt att söka efter boenden
+När jag anger specifika kriterier som "pool" 
+Och "frukost inkluderat"
+Då ska jag se en lista med boenden som uppfyller mina kriterier
+Då ska varje boende visa relevant information om faciliteter
+
+
+
+7. Som användare vill jag kunna visa listor med kort info och i detalj.
+
+Scenario: Visa bokningsalternativ med kort och detaljinfo
+Givet att jag har sökt efter boenden
+När jag ser listan med bokningsalternativ
+Då ska varje alternativ visa kort information som namn, pris och betyg
+Och när jag klickar på ett alternativ
+Då ska jag se en detaljvy med all information om boendet och dess faciliteter
+
+
+8. Som användare vill jag kunna göra sökningar på avstånd.
+
+Scenario: Sökning baserat på avstånd
+Givet att jag är en användare som vill söka efter boenden
+När jag anger ett avstånd (t.ex. 5 km) från en specifik plats
+Då ska jag få en lista med boenden som ligger inom det angivna avståndet
+Så avståndet till varje boende ska vara tydligt angivet
+
+
+
+9. Som användare vill jag kunna göra sökningar på olika aktiviteter.
+
+Scenario: Sökning på aktiviteter
+Givet att jag är en användare som vill hitta aktiviteter under min resa
+När jag anger intressen som "vandring" eller "skidåkning"
+Då ska jag få en lista med aktiviteter som passar mina intressen
+Så varje aktivitet ska visa tid, plats och eventuell kostnad
+
+
+10. Som användare vill jag kunna göra sökningar på färdmedel.
+
+Scenario: Sökning på färdmedel
+Givet att jag vill planera min resa med färdmedel
+När jag söker efter alternativ som "bil", "tåg" eller "flyg"
+Då ska jag se en lista med tillgängliga färdmedel
+Så varje alternativ ska visa avgångstider, priser och reslängd
+
+
+
+
+11. Som användare vill jag kunna avboka min resa.
+
+Scenario: Avboka en bokning
+Givet att jag har gjort en bokning på webbplatsen
+När jag går till min bokningshistorik
+Och väljer den bokning jag vill avboka
+Då ska jag kunna se alternativ för avbokning
+Så när jag bekräftar avbokningen
+Då ska jag få en bekräftelse på att min bokning har avbokats
+
+
+
+12. Som användare vill jag kunna ändra antal personer i min bokning.
+
+Scenario: Ändra antal personer i en bokning
+Givet att jag har en aktiv bokning
+När jag går till min bokning och väljer att ändra antalet personer
+Och jag anger det nya antalet personer
+Då ska jag se en uppdaterad sammanställning av min bokning
+Så jag ska kunna se om det finns några kostnadsändringar baserat på det nya antalet
+
+
+
+13. Som användare vill jag kunna boka ett rum eller flera rum inför min resa.
+
+Scenario: Användare bokar ett rum
+Givet att jag är inloggad som användare
+När jag går till boknings sidan
+Och jag väljer alternativet "Boka rum"
+Och jag skriver in "2024-12-01" som ankomstdatum
+Och jag skriver in "2024-12-07" som avresedatum
+Och jag skriver in "2" rum
+Och jag klickar på "Sök"
+Då ska jag se en lista över tillgängliga rum
+När jag väljer ett rum från listan
+Och jag fyller i mina betalnings uppgifter
+Och jag bekräftar bokningen
+Då ska jag se en bekräftelse på min bokning med detaljer om rummet och datumen
+
+
+
+14. Som användare vill jag kunna boka en specifik avgångstid eller ankomsttid. 
+
+Scenario: Användare bokar en specifik avgångstid 
+Givet att jag är inloggad som användare
+När jag går till resesidan
+Och jag väljer alternativet "Boka resa"
+Och jag skriver in "08:00" som avgångstid
+Då ska jag se alternativ för resor som avgår klockan "08:00"
+
+Scenario: Användare bokar ett rum med specifik ankomsttid
+Givet att jag är inloggad som användare
+När jag går till bokningssidan
+Och jag väljer alternativet "Boka rum"
+Och jag skriver in "2024-12-01" som ankomstdatum
+Och jag skriver in "14:00" som specifik ankomsttid
+Och jag skriver in "2024-12-07" som avresedatum
+Och jag skriver in "2" rum
+Och jag klickar på "Sök"
+Då ska jag se en lista över tillgängliga rum med den angivna ankomsttiden
+När jag väljer ett rum från listan
+Och jag fyller i mina betalningsuppgifter
+Och jag bekräftar bokningen
+Då ska jag se en bekräftelse på min bokning med detaljer om rummet, ankomsttid och avresedatum
+
+
+
+
+15. Som användare vill jag kunna ge en beskrivning av sällskapets allergier.
+
+Scenario: Användare ger beskrivning av sällskapets allergier
+Givet att jag är inloggad som användare
+När jag fyller i information om mitt sällskap
+Och jag skriver in "2 vuxna och 1 barn" som sällskapets sammansättning
+Och jag skriver in "Allergisk mot nötter" som allergi
+Och jag beskriver mitt sällskap som en familj
+Då ska jag kunna se en sammanfattning av den angivna informationen
+Och jag ska kunna bekräfta att informationen är korrekt
+
+
+
+16. Som användare vill jag kunna ge en beskrivning av vad för funktionsnedsättningar sällskapet har.
+
+Scenario: Användare ger beskrivning av sällskapets funktionsnedsättningar
+Givet att användaren befinner sig fortfarande på samma registreringssida och ser ett fält för funktionsnedsättningar
+När användaren fyller i fältet med relevant information, till exempel "Rullstolsanvändare" och "Hörselskada"
+Och användaren trycker på "Spara"
+Då systemet kontrollerar att texten är giltig och inte tom, sparar uppgifterna och visar ett meddelande som bekräftar att informationen har registrerats. Denna information blir också tillgänglig för admin och företag
+
+
+
+
+17. Som användare vill jag kunna ge en beskrivning av hur många vi är i sällskapet.
+
+Scenario: Ge beskrivning av antal i sällskapet
+Givet att användaren befinner sig fortfarande på sidan för sällskapsinformation
+När användaren anger antalet personer i sällskapet i det angivna fältet
+Och användaren trycker på "Spara"
+Då Systemet registrerar antalet och visar en bekräftelse, samt gör informationen tillgänglig för admin och företag
+
+
+
+18. Som användare vill jag kunna filtrera aktiviteter efter hur många personer vi är i sällskapet. 
+
+Scenario: Filtrera efter platser kvar 
+Givet att jag som användare använder sökfunktionen
+Och filtrerar på aktiviteter där antalet platser är större än 0
+När jag trycker på sök
+Så får jag fram en lista på aktiviteter som har platser kvar
+Och kan boka den aktiviteten saom har platser kvar för mitt sällskap
+
+
+19. Som användare vill jag kunna se mina tidigare bokningar och historik.
+
+Scenario: Användare ser sina tidigare bokningar
+Givet att jag är inloggad som användare
+När jag går till min bokningshistorik
+Då ska jag se en lista över mina tidigare bokningar
+Och varje bokning ska innehålla datum,rum/aktivitet och status
+
+Scenario: Användare ser sin bokningshistorik
+Givet att jag är inloggad som användare
+När jag går till min bokningshistorik
+Då ska jag se en lista över mina tidigare bokningar
+Och varje bokning ska innehålla datum, rum/aktivitet och status
+
+
+
+20. Som användare vill jag kunna betygsätta ett boende så att jag kan dela min åsikt och hjälpa andra att fatta beslut.
+
+Scenario: Betygsätta ett boende
+Givet att jag är inloggad som användare
+Och jag befinner mig på sidan för det specifika boendet
+När jag väljer en betygs stjärna mellan 1 och 5
+Och jag klickar på knappen “Skicka betyg” 
+Så ska mitt betyg sparas
+Och jag ska se en bekräftelse som visar att betyget har registrerats
+
+
+
+21. Som användare vill jag kunna läsa recensioner från andra användare så att jag kan få insikter om boendet från tidigare gäster.
+
+Scenario: Visa recensioner för ett boende
+Givet att jag är på sidan för ett specifikt boende
+Och det finns minst en recension publicerad
+När jag scrollar ner till avsnittet för recensioner
+Så ska jag se en lista med recensioner från andra användare 
+Och varje recension ska innehålla användarnamn, betyg (1-5 stjärnor) och text
+
+
+
+22. Som användare vill jag kunna skicka ett mail till boendet så att jag kan få svar på frågor.
+
+Scenario: Skicka ett mail till boendet
+Givet att jag är på sidan för boendet
+Och jag ser en sektion för att kontakta boendet
+När jag fyller i mitt namn, e-postadress och meddelande
+Och jag klickar på knappen “Skicka”
+Så ska jag få en bekräftelse på att mitt meddelande har skickats
+Och jag ska se ett meddelande som säger “Ditt meddelande har skickats. Vi återkommer inom kort”
+
+
+
+
+23. Som användare vill jag kunna se om min bokning har blivit betald så att jag kan vara säker på att min resa är bekräftad.
+
+Scenario: Visa betald bokning
+Givet att jag är inloggad på mitt konto
+Och jag har en bokning som har blivit betald
+När jag går till sidan “Mina bokningar”
+Så ska jag se min bokning listad som “Betald”
+Och jag ska kunna se betalningsdetaljer, inklusive datum för betalning och belopp
+
+
+ 
+24. Som admin vill jag kunna se min profil information.
+
+Scenario: Se profil information
+Givet att jag är inloggad som administratör 
+När jag trycker till sidan "Min profil" 
+Då ska jag se följande information: 
+		Fullständigt namn: Visas korrekt 	
+		E-postadress: Visas och kan klickas på för att kopiera eller komma ihåg
+		Telefonnummer: Visas i rätt format 
+		Roll(er): T.ex. "Administratör" med tydlig markering 
+		Senast inloggad: Datum och tid ska visas i ett lättförståeligt format 
+Och jag ska ha möjlighet att redigera denna information om det behövs
+
+
+25. Som admin vill jag kunna logga in och redigera mitt konto.
+
+Scenario: Logga in och redigera konto
+Givet att jag går till inloggningssidan
+Och anger mina inloggningsuppgifter korrekt
+Och trycker på "Logga in"
+Då ska jag vara till min konto sidan
+Och se en tydlig knapp för "Redigera konto" i menyn
+När jag klickar på "Redigera konto"
+Och ändrar min e-postadress och/eller lösenord
+Och trycker på "Spara"
+Då ska jag få en bekräftelse på att mina ändringar har sparats framgångsrikt
+Och systemet ska logga ut mig och jag ska kunna logga in med de nya uppgifterna
+
+
+26. Som admin vill jag kunna ändra bokningar åt kunder.
+
+Scenario: Ändra bokningar åt kunder
+Givet att jag är inloggad som admin
+Och jag har tillgång till bokningshanteringssidan
+När jag söker efter en aktiv bokning med kundens namn eller bokningsnummer
+Och väljer den specifika bokningen
+Och ändrar bokningsdatum, tid eller annan relevant information
+Och kommer en popup-ruta som frågar "Är du säker på att du vill ändra?"
+Och trycker på "Spara ändringar"
+Då ska ändringarna sparas korrekt i systemet
+Och en bekräftelse via e-post ska skickas till kunden med detaljer om den uppdaterade bokningen
+Och jag ska se en bekräftelse på skärmen som bekräftar att ändringen har genomförts
+
+
+27. Som admin vill jag kunna avboka resor åt kunder.
+
+Scenario: Avboka resor åt kunder
+Givet att jag är inloggad som administratör
+Och jag har tillgång till bokningshanteringssidan
+När jag letar upp en aktiv bokning för en specifik kund
+Och väljer alternativet "Avboka"
+Och bekräftar avbokningen i en popup-ruta som frågar "Är du säker på att du vill avboka?"
+Då ska bokningen avbokas från systemet
+Och en e-postbekräftelse ska skickas till kunden med information om avbokningen
+Och jag ska se en bekräftelse på skärmen att bokningen har avbokats framgångsrikt
+
+
+28. Som admin vill jag kunna redera användares profiler eller företag som bryter mot våra regler.
+
+Scenario: Radera användares profiler eller företag
+Givet att jag är inloggad som admin
+Och jag har en lista över användare och företag som har brutit mot våra regler
+När jag väljer en specifik användare eller företag från listan
+Och klickar på "Radera profil"
+Och en popup-ruta dyker upp och frågar "Är du säker på att du vill radera denna profil?"
+Och jag bekräftar raderingen
+Då ska användarens eller företagets profil tas bort permanent från systemet
+Och alla relaterade bokningar ska avbokas automatiskt
+Och jag ska få en bekräftelse på skärmen som visar att raderingen har genomförts framgångsrikt
+
+
+29. Som admin vill jag kunna se listor med detaljerad info om användare.
+
+Scenario: Lista om användare
+Givet Admin är inloggad på adminpanelen, där det finns en meny med flera alternativ
+När Admin klickar på "Användare" i menyn till vänster
+Och Admin väljer alternativet "Visa detaljerad info"
+Då Systemet hämtar och visar en lista med användare, inklusive namn, e-postadress, registreringsdatum och status (aktiv/inaktiv)
+Och kan klicka på en användares namn för att se mer detaljer, inklusive allergier, funktionsnedsättningar och sällskapsinformation
+Då Om det inte finns några användare visas meddelandet "Inga användare hittades"
+
+
+30. Som admin vill jag kunna se listor med detaljerad info om boende.
+
+Scenario: Lista om boende
+Givet att Admin är inloggad på adminpanelen och har navigerat till sektionen för boende
+När Admin klickar på "Boende" i menyn till vänster
+Och Admin väljer "Visa detaljerad info"
+Då Systemet hämtar och visar en lista med boenden, inklusive namn, typ av boende (t.ex. hotell, vandrarhem), antal rum och tillgänglighet
+Och Admin kan klicka på ett specifikt boende för att se mer detaljer, inklusive priser, beskrivningar och bilder
+Då om inga boenden finns registrerade visas meddelandet "Inga boenden hittades"
+
+
+
+31. Som admin vill jag kunna se listor med detaljerad info om aktiviteter.
+
+Scenario: Lista om aktiviteter
+Givet att Admin är inloggad på adminpanelen och har navigerat till sektionen för aktiviteter
+När Admin klickar på "Aktiviteter" i menyn
+Och Admin väljer "Visa detaljerad info"
+Då Systemet visar en lista med aktiviteter, inklusive namn, typ (t.ex. sport, kultur), datum och tid
+Och Admin kan klicka på en aktivitet för att få mer information, inklusive deltagarantal, plats och beskrivningar
+Då Om inga aktiviteter är registrerade visas meddelandet "Inga aktiviteter hittades"
+
+
+
+32. Som admin vill jag kunna se listor med detaljerad info om resor.
+
+Scenario: Lista om resor
+Givet att Admin är inloggad på adminpanelen och har navigerat till sektionen för resor
+När Admin klickar på "Resor" i menyn
+Och Admin väljer "Visa detaljerad info"
+Då Systemet visar en lista med resor, inklusive destination, datum, reseledare och antal deltagare
+Och Admin kan klicka på en specifik resa för att se mer detaljer, inklusive prisinformation, reseprogram och bokningsstatus
+Då om inga resor finns registrerade visas meddelandet "Inga resor hittades"
+
+
+
+33. Som admin vill jag kunna se en beskrivning av sällskapet.
+
+Scenario: Beskrivining av sällskapet
+Givet att Admin är på en specifik användarprofil och ser en sektion för sällskapsinformation
+När Admin klickar på fliken "Sällskapsinformation"
+Och Admin väljer att visa beskrivningen genom att klicka på "Visa beskrivning"
+Då Systemet visar detaljerad information om sällskapet, inklusive allergier, funktionsnedsättningar och antal personer
+Och Admin kan även redigera informationen om det behövs, vilket öppnar ett formulär med aktuella värden
+Då Om sällskapet inte har registrerat någon information visas meddelandet "Ingen sällskapsinformation tillgänglig"
+
+
+
+34. Som admin vill jag kunna se en beskrivning av allergier.
+
+Scenario: Beskrivining av allergier
+Givet Admin är inloggad och befinner sig på en specifik användarprofil där sällskapsinformation finns
+När Admin klickar på fliken "Sällskapsinformation"
+Och Admin väljer att se allergibeskrivningen genom att klicka på "Visa allergier"
+Och Systemet visar en detaljerad lista över allergier som sällskapet har angivit
+Då om inga allergier är registrerade visas meddelandet "Inga allergier angivna"
+
+
+
+
+35. Som admin vill jag kunna se en beskrivning av funktionsnedsättningar.
+
+Scenario: Beskrivning av funktionsnedsättningar
+Givet att Admin är fortfarande på sällskapsinformationen för en specifik användare
+När Admin klickar på "Visa funktionsnedsättningar"
+Och Admin väljer att se beskrivningen
+Och Systemet visar detaljerad information om funktionsnedsättningar som sällskapet har angivit
+Då om inga funktionsnedsättningar är registrerade visas meddelandet "Inga funktionsnedsättningar angivna"
+
+
+
+36. Som admin vill jag kunna se en beskrivning av antal personer.
+
+Scenario: Beskrivning antal personer
+Givet att Admin är på samma användarprofil där sällskapsinformation finns
+När Admin klickar på "Visa antal personer"
+Och Admin väljer att se antalet registrerade deltagare i sällskapet
+Och Systemet visar det registrerade antalet personer, exempelvis "5 personer"
+Då Om inget antal har registrerats visas meddelandet "Inget antal angivet"
+
+
+
+37. Som företag vill jag kunna ta emot meddelanden från användare.
+
+Scenario: Ta emot meddelanden
+Givet att Företaget är inloggat och har navigerat till sin företagsprofil
+När Företaget klickar på "Meddelanden" i menyn
+Och Företaget ser en lista över inkommande meddelanden, inklusive datum, avsändare och ämne
+Då Systemet visar meddelandena i en översiktlig lista
+Och Företaget kan klicka på ett meddelande för att läsa hela innehållet. Om det inte finns några meddelanden visas meddelandet "Inga nya meddelanden"
+Då Företaget kan svara direkt genom att fylla i ett svar i ett textfält och klicka på "Skicka"
+
+
+
+38. Som företag vill jag kunna ta emot och hantera feedback från användare.
+
+Scenario: Ta emot feedback
+Givet att Företaget är inloggat och har navigerat till feedbacksektionen
+När Företaget ser en lista med feedback, inklusive användarnamn, datum, och betyg (1-5 stjärnor)
+Och Företaget kan klicka på en specifik feedback för att läsa mer detaljerat
+Då Systemet visar hela feedbacken, inklusive kommentarer och eventuell tidigare respons
+Och Företaget kan välja att svara på feedbacken direkt eller markera den som åtgärdad
+Och om feedbacken är negativ kan företaget se förslag på hur de kan förbättra sig
+Då om ingen feedback har registrerats visas meddelandet "Ingen feedback tillgänglig"
+
+
+
+39. Som företag vill jag kunna ladda upp bilder på mitt hotell så att jag kan göra dem mer attraktiva.
+
+Scenario: Ladda upp bilder på hotell
+Givet att Företaget är på sin profilredigeringssida, där det finns en sektion för att ladda upp bilder
+När Företaget klickar på "Ladda upp bilder" och väljer en eller flera bilder från sin dator
+Och Företaget klickar på knappen "Spara bilder"
+Då Systemet kontrollerar att bilderna uppfyller formatkraven (t.ex. JPG, PNG) och filstorleksgränser
+Och om någon bild inte är giltig visas meddelandet "Vänligen ladda upp bilder i ett giltigt format"
+Och om alla bilder är giltiga laddas de upp och systemet visar en bekräftelse "Bilderna har laddats upp"
+Då de nya bilderna visas nu på företagets profilsida, och företaget kan se en förhandsgranskning av dem
+
+
+
+40. Som företag vill jag kunna redigera information så som antal rum etc. 
+
+Scenario: Redigera info om rum 
+Givet att jag är på profil sidan för företag 
+Och ser rutan om information (rum) 
+Och kan markera den 
+Och skriver in information om antal rum
+När jag klickar på uppdatera knappen
+Så kommer användare kunna se den uppdaterade informationen om rummet
+
+
+
+
+41. Som företag vill jag kunna lägga till tillgängliga rum/information. 
+
+Scenario: Lägga till rum 
+Givet att jag är på profil sidan för företag 
+Och kan lägga till ett rum som är tillgängligt
+Och skriver till information om rummet
+När jag klickar på uppdatera knappen
+Så kommer användare kunna se det tillgängliga rummet
+
+
+42. Som företag vill jag kunna skriva en beskrivning till varje rum. 
+
+Scenario: Skriva beskrivning av rum
+Givet att jag är på profil sidan för företag 
+Och ser beskrivnings rutan 
+Och kan markera den 
+Och skriver i en beskrivande text
+När jag klickar på uppdatera knappen
+Så kommer användare kunna se den uppdaterade beskrivningen
+
+
+
+43. Som företagare vill jag kunna ladda upp bilder på mina aktiviteter så att jag kan göra dem mer attraktiva.
+
+Scenario: Ladda upp bilder på aktivitet
+Givet att jag är inloggad på min företagssida 
+Och kan ändra information om aktiviteten
+Och trycker på lägg till bild
+Och lägger till en beskrivning 
+När jag klickar på uppdatera 
+Så uppdateras profil sidan för aktiviteten
+Och användare kan se dom nya bilderna 
+Och den nya beskrivningen        
+ 
+

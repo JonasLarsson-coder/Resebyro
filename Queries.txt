@@ -1,0 +1,384 @@
+Vi har utgått från att dagens datum är 2024-11-20
+Användare
+1. Som användare vill jag kunna skapa en egen profil för att kunna göra bokningar.
+
+INSERT INTO personuppgifter (förnamn, efternamn,personnummer, mail, adress_id, telefonnummer) 
+VALUES ('Anna', 'Svensson','820904-1222', 'anna.svensson@example.com','4', '0701234567'); 
+
+INSERT INTO konto (användarnamn, lösenord, profilbild, roll) 
+VALUES ('annasvensson', 'säkertLösenord123', 'https://utbildare.studentum.se/hubfs/en_bild_sager_mer_940x420_c.jpg', 'kund'); 
+
+SELECT * FROM personuppgifter 
+JOIN adress on personuppgifter.adress_id = adress.id 
+ WHERE mail = 'anna.svensson@example.com';
+ 
+2. Som användare vill jag kunna logga in på mitt konto för att kunna boka resor.
+
+--logga in på konto
+CREATE VIEW användare_inloggad_eller_inte AS 
+SELECT CASE 
+WHEN 'annasvensson' = användarnamn 
+AND 'säkertLösenord123' = lösenord 
+THEN 'Welcome! You are logged in.' 
+ELSE 'Något gick fel, kolla ditt användarnamn eller lösenord och prova igen!' END status  
+FROM konto  
+WHERE användarnamn = 'annasvensson'; 
+
+--boka resa
+INSERT INTO bokning (konto_id, antal_vuxna, antal_barn, bokningsdatum, totalbelopp, betalat, allergi) 
+VALUES ( '26', '3','3', '2024-11-15','25000','true', 'gluten')
+RETURNING bokning;
+
+3. Som användare vill jag kunna redigera min profil för att uppdatera information.
+ 
+UPDATE konto 
+SET lösenord = 'benhox38', användarnamn= 'dryckesälskaren38', 
+profilbild = 'https://cbbh.pixabay.com/photo/2022/07/31/20/03/alcoholic-drinks-7356721_1280.png', 
+roll= 'kund' 
+Where id = 14
+RETURNING konto;
+
+4. Som användare vill jag kunna sortera sökresultat (efter pris tex).
+
+CREATE VIEW användare_sorterar_sökresultat_efter_pris AS 
+SELECT * FROM aktivitet 
+WHERE lediga_platser >'1' AND aktivitetspris BETWEEN 100 AND 500 
+ORDER BY aktivitetspris;
+
+5. Som användare vill jag kunna söka på boenden på olika orter med specifika krav.
+ 
+CREATE VIEW användare_söker_boende_på_olika_orter_med_specifika_krav AS
+SELECT h.id,hotell_namn, beskrivning, ort, antal_rum, lediga_rum
+FROM hotell AS h
+JOIN dryckesalskarens_odysse.adress a on h.adress_id = a.id
+WHERE land = 'spanien' -- Ange orten du söker efter
+AND h.antal_rum > 10  -- Exempel på krav: boendet måste ha fler än 10 rum
+AND h.lediga_rum > 0;
+
+6. Som användare vill jag kunna söka på specifika saker som boende och faciliteter.
+
+CREATE VIEW användare_söker_på_specifika_boende_och_faciliteteter AS 
+SELECT id, hotell_namn, beskrivning, pool, wifi,gym  FROM hotell
+JOIN dryckesalskarens_odysse.bokningsalternativ_x_hotell bxh on hotell.id = bxh.hotell_id
+WHERE pool = true -- Exempel på krav: hotell med pool 
+    AND wifi = true -- Exempel på krav: hotell med wifi
+    AND gym = true; -- Exempel på krav: hotell med gym
+
+
+7. Som användare vill jag kunna se listor med kort info om bokningsalternativ, men också kunna se i detalj.
+
+CREATE VIEW användare _ser_detaljerad_info_bokningsalternativ AS 
+SELECT h.id AS hotell_id, h.hotell_namn, h.beskrivning, b.pool, b.wifi, b.flygplats_transfer, b.aktivitet_transfer, b.balkong, b.hiss, b.handikappanpassad, b.spa, b.husdjurvänligt, b.barnklubb, b.gym 
+FROM hotell AS h 
+JOIN bokningsalternativ_x_hotell AS b ON h.id = b.hotell_id 
+WHERE h.id = 7; 
+-- Ange vilket specifikt hotell_id.
+
+8. Som användare vill jag kunna göra sökningar på avstånd.
+
+CREATE VIEW avstånd_aktivitet_hotell AS 
+SELECT  a.id, a.hotell_id, act.aktivitet_namn,  h.hotell_namn AS hotellnamn,  a."avstånd(km)" 
+FROM  dryckesalskarens_odysse."avstånd" a 
+JOIN aktivitet AS act ON a.aktivitet_id = act.id 
+JOIN hotell AS h ON a.hotell_id = h.id 
+WHERE a."avstånd(km)"::int = 2;   
+-- Ändra 2 till önskat maxavstånd i kilometer 
+
+9. Som användare vill jag kunna göra sökningar på olika aktiviteter.
+
+CREATE VIEW aktivitet_sökning AS 
+SELECT aktivitet.id,aktivitet_namn,beskrivning,aktivitetspris,aktivitetsdatum,adress.ort, adress.land  
+FROM aktivitet 
+JOIN aktivitet_x_adress ON aktivitet.id = aktivitet_x_adress.aktiviteter_id  
+JOIN adress ON aktivitet_x_adress.adress_id = adress.id 
+WHERE aktivitet_namn =’arbogapaketet’; 
+--Man kan ändra sökningen i WHERE till andra specifika krav tex datum eller antal lediga platser, land, tid etc. 
+
+10. Som användare vill jag kunna göra sökningar på färdmedel.
+
+CREATE VIEW transport_sokning AS  
+SELECT destination.id, från, till, flyg_incheckning, restid,pris, gatunamn, gatunummer,postnummer, ort, land, flygplats_transfer, aktivitet_transfer
+FROM destination
+JOIN adress ON destination.adress_id = adress.id
+JOIN dryckesalskarens_odysse.hotell h on adress.id = h.adress_id
+JOIN dryckesalskarens_odysse.bokningsalternativ_x_hotell bxh on h.id = bxh.hotell_id;
+
+11. Som användare vill jag kunna avboka min resa.
+
+DELETE FROM bokning 
+WHERE id = 'bokning_id'; 
+--bokning_id på den resan som ska avbokas 
+--användare kan bara avboka hela resan!! 
+
+12. Som användare vill jag kunna ändra antal personer i min bokning.
+
+UPDATE bokning
+SET antal_vuxna ='4', antal_barn = '2'
+WHERE id = '18'
+RETURNING bokning;
+-- Antalet ändras från 3 vuxna till 4 och 3 barn till 2 därför är totalpriset densamma.
+  
+13. Som användare vill jag kunna boka ett rum eller flera rum inför min resa.   
+
+INSERT INTO rum (id, rumstyp, hotell_id, "rumspris ",rumsnummer)
+VALUES ('9', 'enkelrum','7', '750', '101)
+RETURNING rum;
+
+INSERT INTO bokning_X_rum (bokning_id, rum_id)
+VALUES ('10','9')
+RETURNING bokning_x_rum;
+
+--Användare har bokning_id 10 hade inte bokat ett hotell i Tyskland men valde att göra det i efterhand.
+
+14. Som användare vill jag kunna boka en specifik avgångstid eller ankomsttid.
+
+INSERT INTO destination (från, adress_id, flyg_incheckning, restid, till, pris)
+VALUES ('sverige','22','2024-12-29 12:20:41.000000','04:12:00','grekland','300')
+RETURNING destination;
+
+15. Som användare vill jag kunna ge en beskrivning av sällskapets allergier.
+
+INSERT INTO bokning (konto_id, antal_vuxna, antal_barn, bokningsdatum, totalbelopp, betalat, allergi, funktionsnedsättning, husdjur)
+VALUES ('24', '1', '10', '2024-12-26', '10000', 'true', 'almond', 'alkoholintolerans_x2','katt_x3')
+RETURNING bokning;
+
+16. Som användare vill jag kunna ge en beskrivning av vad för funktionsnedsättningar sällskapet har.
+
+INSERT INTO bokning (konto_id, antal_vuxna, antal_barn, bokningsdatum, totalbelopp, betalat, allergi, funktionsnedsättning, husdjur)  
+VALUES ('24', '1', '10', '2024-12-26', '10000','true','Almond', 'Alkoholintolerans_x2', 'katt_x3')
+RETURNING bokning; 
+-- Ändra konto_id till ett annat nummer till det som finns i databasen och skriva specifik vilka VALUES du vill stoppa i. 
+ 
+17. Som användare vill jag kunna ge en beskrivning av hur många vi är i sällskapet.
+
+Här vi kommer vi uppdatera ovanstående bokning. 
+UPDATE bokning 
+SET antal_vuxna = '3', antal_barn = '8' 
+WHERE konto_id = '24'
+RETURNING bokning;   
+-- Ändra antal_vuxna och antal_barn till ett annat värde för att få effekt av denna query. 
+--Vi ändrar från 1 vuxen till 3 och frn 10 barn till 8
+
+18. Som användare vill jag kunna filtrera aktiviteter efter hur många personer vi är i sällskapet. 
+
+SELECT a.aktivitet_namn, a.beskrivning, a.antal_platser, a.lediga_platser, a.aktivitetsdatum, a.aktivitetstid 
+FROM aktivitet AS a 
+WHERE a.lediga_platser >= '11'; 
+-- Ändra 11 till antalet personer i sällskapet 
+  
+19. Som användare vill jag kunna se mina tidigare bokningar och historik.
+
+CREATE VIEW bokningshistorik AS 
+SELECT bokningsdatum, användarnamn, till, från, flyg_incheckning  
+FROM bokning 
+JOIN bokning_x_destination AS bxd ON bokning.id = bxd.bokning_id 
+JOIN destination AS d ON d.id = bxd.destination_id 
+JOIN konto AS k ON k.id = bokning.konto_id 
+WHERE bokningsdatum <'2024-11-05' AND användarnamn='roffe'; 
+--kan byta ut datumet eller användarnamn.  
+-- Går även att kolla flyg_incheckning om man vill se när den faktiska resan är gjord. 
+
+20. Som användare vill jag kunna betygsätta ett boende.
+
+INSERT INTO betyg (hotell, beskrivning, konto_id) 
+VALUES (1, 'Mycket trevligt boende med bra service', 1)
+RETURNING betyg; 
+-- Ändra 1 till korrekt hotell-ID och användar-ID (konto_id) 
+
+21. Som användare vill jag kunna läsa recensioner från andra användare.
+
+CREATE VIEW alla_recensioner AS 
+SELECT b.beskrivning, p."förnamn", p.efternamn, hotell, bokning, aktivitet 
+FROM betyg AS b 
+JOIN personuppgifter AS p ON b.konto_id = p.id; 
+-- Här man kan se alla recentioner från andra användare  
+
+22. Som användare vill jag kunna skicka ett mail till boendet så att jag kan få svar på frågor.
+
+CREATE VIEW hotell_uppgifter AS 
+SELECT hotell_namn, mail, förtagsuppgifter_id FROM hotell AS h 
+JOIN företagsuppgifter AS f on f.id = h.förtagsuppgifter_id; 
+--Med hjälp av detta kan vi få fram mail adressen till hotell då kan användare skicka mail till företaget. 
+
+23. Som användare vill jag kunna se om min bokning har blivit betald.
+
+CREATE VIEW har_bokningen_blivit_betald AS 
+SELECT konto_id, användarnamn, betalat, totalbelopp AS totalbelopp_i_kr FROM bokning 
+JOIN dryckesalskarens_odysse.konto k on bokning.konto_id = k.id 
+WHERE betalat = 'true' And användarnamn = 'arbogamannen' 
+
+
+
+Admin
+24. Som admin vill jag kunna se min profil information.
+
+CREATE VIEW admin_profilinformation AS
+SELECT roll, användarnamn, förnamn,efternamn, mail, profilbild FROM personuppgifter 
+JOIN dryckesalskarens_odysse.konto k on personuppgifter.konto_id = k.id 
+WHERE roll = 'admin'; 
+
+25. Som admin vill jag kunna logga in.
+
+CREATE VIEW Admin_inloggad_eller_inte AS
+            SELECT CASE
+            WHEN 'dryckesälskaren' = användarnamn
+            AND 'ashude672s' = lösenord
+            THEN 'Välkommen Admin! Du är inloggad.'
+            ELSE 'Något gick fel, kolla ditt användarnamn eller lösenord och prova igen!' END status
+            FROM konto
+            WHERE användarnamn = 'dryckesälskaren';
+
+
+26. Som admin vill jag kunna ändra bokningar åt kunder.
+
+UPDATE bokning 
+SET antal_vuxna ='1', antal_barn ='1', bokningsdatum ='2024-11-20', betalat= 'true' 
+WHERE id = '19' 
+RETURNING bokning; 
+--Från början var det 5 vuxna, 5 barn, bokningsdatumet var 2024-11-15 och betalat var false 
+-- Returning för att se vad som har updaterats
+
+27. Som admin vill jag kunna avboka resor åt kunder.
+
+DELETE FROM bokning_x_destination
+    WHERE destination_id= '16' AND bokning_id ='19'
+RETURNING bokning_x_destination;
+
+DELETE FROM destination
+    WHERE id='16'
+RETURNING destination;
+
+DELETE FROM bokning
+    WHERE id='19'
+RETURNING bokning;
+
+
+28. Som admin vill jag kunna radera användares profiler eller företag som bryter mot våra regler.
+
+DELETE FROM personuppgifter
+    WHERE id ='20'
+        RETURNING personuppgifter;
+
+DELETE FROM konto
+    WHERE id='27'
+        RETURNING konto;
+		
+	
+29. Som admin vill jag kunna se listor med detaljerad info om användare.
+
+CREATE VIEW detaljerad_info_om_användare AS
+SELECT förnamn, efternamn, personnummer, mail, telefonnummer, gatunamn, gatunummer,postnummer, ort, land, användarnamn,lösenord, profilbild
+,roll FROM personuppgifter
+    JOIN dryckesalskarens_odysse.adress a on a.id = personuppgifter.adress_id
+    JOIN dryckesalskarens_odysse.konto k on k.id = personuppgifter.konto_id;
+	
+	
+30. Som admin vill jag kunna se listor med detaljerad info om boende.
+
+CREATE VIEW detaljerade_info_om_boende AS
+SELECT hotell_namn,hotell.beskrivning AS hotellbeskrivning, incheckning,utcheckning, antal_rum, lediga_rum, b.beskrivning AS bildbeskrivning,bilder,gatunamn,gatunummer,postnummer,ort, land,enkelrum,dubbelrum,trebäddsrum,
+       fyrbäddsrum,sovsal,lyxrum,familjerum,rumsnummer,rumstyp,"rumspris ", pool, wifi, flygplats_transfer,aktivitet_transfer, balkong, hiss,
+       handikappanpassad,spa,husdjurvänligt,barnklubb,gym FROM hotell
+    JOIN dryckesalskarens_odysse.bilder b on hotell.id = b.hotell_id
+    JOIN dryckesalskarens_odysse.rumstyper_x_hotell hxh on hotell.id = hxh.hotell_id
+    JOIN dryckesalskarens_odysse.rum r on hotell.id = r.hotell_id
+JOIN dryckesalskarens_odysse.bokningsalternativ_x_hotell bxh on hotell.id = bxh.hotell_id
+JOIN dryckesalskarens_odysse.adress a2 on a2.id = hotell.adress_id;
+
+
+31. Som admin vill jag kunna se listor med detaljerad info om aktiviteter.
+
+CREATE VIEW detaljerad_info_om_aktiviteter AS
+SELECT aktivitet_namn,aktivitet.beskrivning AS Aktivitetsbeskrivning, aktivitetspris,aktivitetsdatum, aktivitetstid, antal_platser,lediga_platser,barnvänligt,
+       alkoholfritt, b.beskrivning AS bildbeskrivning, b.bilder ,gatunamn,gatunummer,postnummer,ort,land FROM aktivitet
+    JOIN dryckesalskarens_odysse.bilder b on aktivitet.id = b.aktivitet_id
+    JOIN dryckesalskarens_odysse.aktivitet_x_adress axa on aktivitet.id = axa.aktiviteter_id
+JOIN dryckesalskarens_odysse.adress a on a.id = axa.adress_id;
+
+
+32. Som admin vill jag kunna se listor med detaljerad info om resor.
+
+CREATE VIEW detaljerad_info_om_resor AS
+SELECT från,till,flyg_incheckning,restid,pris, gatunamn,gatunummer, postnummer,ort,land FROM destination
+    JOIN dryckesalskarens_odysse.adress a on a.id = destination.adress_id;
+	
+	
+33. Som admin vill jag kunna se en beskrivning av sällskapet.
+
+CREATE VIEW beskrivning_av_sällskapet AS
+SELECT (antal_vuxna+antal_barn) AS antal_personer ,funktionsnedsättning, allergi, användarnamn, konto_id, bokningsdatum FROM bokning
+JOIN dryckesalskarens_odysse.konto k on k.id = bokning.konto_id;
+
+
+34. Som admin vill jag kunna se en beskrivning av allergier.
+
+CREATE VIEW beskrivning_av_allergier AS
+SELECT allergi, användarnamn, konto_id FROM bokning
+JOIN dryckesalskarens_odysse.konto k on k.id = bokning.konto_id;
+
+
+35. Som admin vill jag kunna se en beskrivning av funktionsnedsättningar.
+
+CREATE VIEW beskrivning_av_funktionsnedsättning AS
+SELECT funktionsnedsättning, användarnamn, konto_id FROM bokning
+JOIN dryckesalskarens_odysse.konto k on k.id = bokning.konto_id;
+
+
+36. Som admin vill jag kunna se en beskrivning av antal personer.
+
+CREATE VIEW beskrivning_av_antal_personer AS
+SELECT (antal_vuxna+antal_barn) AS antal_personer , användarnamn, konto_id, bokningsdatum FROM bokning
+JOIN dryckesalskarens_odysse.konto k on k.id = bokning.konto_id;
+
+
+
+Företag Boende & Aktivitet
+37. Som företag vill jag kunna ta emot meddelanden från användare.
+
+CREATE VIEW ta_emot_meddelanden_från_användare AS 
+SELECT användarnamn, förnamn, efternamn, mail, konto_id FROM personuppgifter 
+JOIN dryckesalskarens_odysse.konto k on personuppgifter.konto_id = k.id; 
+
+38. Som företag vill jag kunna ta emot och hantera feedback från användare.
+
+CREATE VIEW hantera_feedback_från_användare AS 
+SELECT b.beskrivning, p."förnamn", p.efternamn, mail, hotell, bokning, aktivitet 
+FROM betyg AS b 
+JOIN personuppgifter AS p ON b.konto_id = p.id 
+WHERE hotell = ‘3’; 
+
+39. Som företag vill jag kunna ladda upp bilder på mitt hotell så att jag kan göra dem mer attraktiva.
+
+INSERT INTO bilder (hotell_id, beskrivning, bilder) 
+VALUES ( '5', 'hotellterassen', 'https://www.travelbeyond.se/media/34033823/jp_four_seasons_kyoto_terrace_web.jpg?rmode=crop&ranchor=center&width=1920&height=1080&quality=90&upscale=true&rnd=638308997098600000'); 
+
+
+Boende
+40. Som företag vill jag kunna redigera information så som antal rum etc. 
+
+UPDATE hotell SET antal_rum = '750' WHERE id = '10'
+RETURNING hotell; 
+--antal rum var 800 innan UPDATE, ändra till mer specifikt 
+
+41. Som företag vill jag kunna lägga till tillgängliga rum/information.
+
+UPDATE hotell SET lediga_rum = '51' WHERE id = '7'
+RETURNING hotell;
+--50 lediga rum innan UPDATE, ändra till med specifikt
+
+42. Som företag vill jag kunna skriva en beskrivning till varje rum.
+
+ALTER TABLE rum
+ADD rumsbeskrivning VARCHAR(255);
+
+UPDATE rum SET rumsbeskrivning = 'ett rum med tre bäddar' WHERE id = 2;
+--som företag(hotell) vill jag kunna lägga till en beskrivning till varje rum.
+--kolumnen rumsbeskrivning fanns inte så skapas med ALTER TABLE, sedan körs en UPDATE och uppdaterar rumsbeskrivningen,ändra till mer specifik.
+
+
+Aktivitet
+43. Som företagare vill jag kunna ladda upp bilder på mina aktiviteter så att jag kan göra dem mer attraktiva.
+
+INSERT INTO bilder (aktivitet_id, beskrivning, bilder)
+VALUES ( '8', 'arboga beskrivning', 'https://static.wikia.nocookie.net/parkliv/images/b/b5/18448020_120332000703975787_1083106205_n.jpg/revision/latest/scale-to-width-down/340?cb=20170518140612&path-prefix=sv' )
+RETURNING bilder;

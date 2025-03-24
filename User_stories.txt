@@ -1,0 +1,57 @@
+Användare
+1. Som användare vill jag kunna skapa en egen profil för att kunna göra bokningar.
+2. Som användare vill jag kunna logga in på mitt konto för att kunna boka resor.
+3. Som användare vill jag kunna redigera min profil för att uppdatera information.
+4. Som användare vill jag kunna sortera sökresultat (efter pris tex).
+5. Som användare vill jag kunna söka på boenden på olika orter med specifika krav.
+
+6. Som användare vill jag kunna söka på specifika saker som boende och faciliteter.
+7. Som användare vill jag kunna se listor med kort info om bokningsalternativ, men också kunna se i detalj.
+8. Som användare vill jag kunna göra sökningar på avstånd.
+9. Som användare vill jag kunna göra sökningar på olika aktiviteter.
+10. Som användare vill jag kunna göra sökningar på färdmedel.
+11. Som användare vill jag kunna avboka min resa.
+12. Som användare vill jag kunna ändra antal personer i min bokning.
+
+13. Som användare vill jag kunna boka ett rum eller flera rum inför min resa. 
+14. Som användare vill jag kunna boka en specifik avgångstid eller ankomsttid. 
+15. Som användare vill jag kunna ge en beskrivning av sällskapets allergier.
+16. Som användare vill jag kunna ge en beskrivning av vad för funktionsnedsättningar sällskapet har.
+17. Som användare vill jag kunna ge en beskrivning av hur många vi är i sällskapet.
+18. Som användare vill jag kunna filtrera aktiviteter efter hur många personer vi är i sällskapet. 
+19. Som användare vill jag kunna se mina tidigare bokningar och historik. 
+
+20. Som användare vill jag kunna betygsätta ett boende.
+21. Som användare vill jag kunna läsa recensioner från andra användare.
+22. Som användare vill jag kunna skicka ett mail till boendet så att jag kan få svar på frågor.
+
+23. Som användare vill jag kunna se om min bokning har blivit betald.
+
+Admin
+24. Som admin vill jag kunna se min profil information.
+25. Som admin vill jag kunna logga in.
+26. Som admin vill jag kunna ändra bokningar åt kunder.
+27. Som admin vill jag kunna avboka resor åt kunder.
+28. Som admin vill jag kunna radera användares profiler eller företag som bryter mot våra regler.
+
+29. Som admin vill jag kunna se listor med detaljerad info om användare.
+30. Som admin vill jag kunna se listor med detaljerad info om boende.
+31. Som admin vill jag kunna se listor med detaljerad info om aktiviteter.
+32. Som admin vill jag kunna se listor med detaljerad info om resor.
+33. Som admin vill jag kunna se en beskrivning av sällskapet.
+34. Som admin vill jag kunna se en beskrivning av allergier.
+35. Som admin vill jag kunna se en beskrivning av funktionsnedsättningar.
+36. Som admin vill jag kunna se en beskrivning av antal personer.
+
+Företag Boende & Aktivitet
+37. Som företag vill jag kunna ta emot meddelanden från användare.
+38. Som företag vill jag kunna ta emot och hantera feedback från användare.
+39. Som företag vill jag kunna ladda upp bilder på mitt hotell så att jag kan göra dem mer attraktiva.
+
+Boende
+40. Som företag vill jag kunna redigera information så som antal rum etc. 
+41. Som företag vill jag kunna lägga till tillgängliga rum/information.
+42. Som företag vill jag kunna skriva en beskrivning till varje rum.
+
+Aktivitet
+43. Som företagare vill jag kunna ladda upp bilder på mina aktiviteter så att jag kan göra dem mer attraktiva.
